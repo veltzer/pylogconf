@@ -63,7 +63,7 @@ def setup():
         logging.config.fileConfig(path)
         return
 
-    debug('did not find [{0}], logging with level [{0}]...'.format(path, default_level), dbg)
+    debug('logging with level [{0}]...'.format(default_level), dbg)
     logging.basicConfig(level=default_level)
 
 
