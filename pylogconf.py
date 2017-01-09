@@ -3,15 +3,8 @@ import os.path
 import logging.config
 import logging
 import yaml
-import sys
 import logging_tree
 from pyfakeuse.pyfakeuse import fake_use
-
-default_path = 'logging.yaml'
-default_level = logging.INFO
-env_key = 'LOG_CFG'
-printout = False
-quiet = True
 
 
 def setup_scrapy():
@@ -40,25 +33,45 @@ def setup_scrapy():
 
 def setup():
     """ setup the logging system """
-    value = os.getenv(env_key, None)
-    if value:
-        path = value
+    default_path_yaml = os.path.expanduser('~/.pylogconf.yaml')
+    default_path_conf = os.path.expanduser('~/.pylogconf.conf')
+    default_level = logging.INFO
+
+    dbg = os.getenv("PYLOGCONF_DEBUG", False)
+
+    """ try YAML config file first """
+    value = os.getenv('PYLOGCONF_YAML', None)
+    if value is None:
+        path = default_path_yaml
     else:
-        path = default_path
+        path = value
     if os.path.isfile(path):
-        if not quiet:
-            print('found logging configuration file [{0}]...'.format(path))
+        debug('found logging configuration file [{0}]...'.format(path), dbg)
         with open(path) as f:
             config = yaml.load(f.read())
             logging.config.dictConfig(config)
+            return
+
+    """ Now try regular config file """
+    value = os.getenv('PYLOGCONF_CONF', None)
+    if value is None:
+        path = default_path_conf
     else:
-        print('did not find [{0}], logging with level [{0}]...'.format(path, default_level))
-        logging.basicConfig(level=default_level)
-    if printout:
-        logging_tree.printout()
-        sys.exit(0)
+        path = value
+    if os.path.isfile(path):
+        debug('found logging configuration file [{0}]...'.format(path), dbg)
+        logging.config.fileConfig(path)
+        return
+
+    debug('did not find [{0}], logging with level [{0}]...'.format(path, default_level), dbg)
+    logging.basicConfig(level=default_level)
 
 
-def debug():
+def show_tree():
     """ Show the logging tree """
     logging_tree.printout()
+
+
+def debug(msg, dbg):
+    if dbg:
+        print(msg)
