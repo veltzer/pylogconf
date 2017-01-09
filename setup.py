@@ -21,8 +21,9 @@ setuptools.setup(
         'Programming Language :: Python :: 3.5',
     ],
     keywords='python logging configuration easy',
-    py_modules = ['pylogconf'],
+    py_modules=['pylogconf'],
     install_requires=[
         'logging_tree',
+        'pyfakeuse',
     ],
 )
