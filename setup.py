@@ -21,8 +21,7 @@ setuptools.setup(
         'Programming Language :: Python :: 3.5',
     ],
     keywords='python logging configuration easy',
-    package_dir={'': 'src'},
-    packages=setuptools.find_packages('src'),
+    py_modules = ['src/pylogconf']
     install_requires=[
         'logging_tree',
     ],
