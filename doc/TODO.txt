@@ -1,0 +1,2 @@
+add a method disable_future_loggers() which disables adding any more handlers to
+any more loggers in the future.
