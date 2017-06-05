@@ -2,6 +2,8 @@ import os
 import os.path
 import logging.config
 import logging
+
+# noinspection PyPackageRequirements
 import yaml
 import logging_tree
 from pyfakeuse.pyfakeuse import fake_use

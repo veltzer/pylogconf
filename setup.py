@@ -6,7 +6,7 @@ if not sys.version_info[0] == 3:
 
 setuptools.setup(
     name='pylogconf',
-    version='0.0.7',
+    version='0.0.8',
     description='pylogconf is a logging configurator for python logging',
     long_description='pylogconf is a logging configurator for python logging',
     url='https://veltzer.github.io/pylogconf',
