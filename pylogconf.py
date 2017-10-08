@@ -2,6 +2,7 @@ import os
 import os.path
 import logging.config
 import logging
+import sys
 
 # noinspection PyPackageRequirements
 import yaml
@@ -9,6 +10,7 @@ import logging_tree
 from pyfakeuse.pyfakeuse import fake_use
 
 
+# noinspection PyPackageRequirements,PyUnresolvedReferences
 def setup_scrapy():
     """ This is not needed as we pass 'LOG_ENABLED':False to scrapy at init time """
 
@@ -33,6 +35,33 @@ def setup_scrapy():
     # print(scrapy.utils.log.log_scrapy_info)
 
 
+_print_traceback = None
+_drill = None
+
+
+def _excepthook(p_type, p_value, p_traceback):
+    logger = logging.getLogger(__name__)
+    # we do not do anything with the traceback
+    if _print_traceback:
+        print(p_traceback)
+    # this loop will drill to the core of the problem
+    # use only if this is what you want to show...
+    if _drill:
+        while p_value.__cause__:
+            p_value = p_value.__cause__
+    logger.error("Exception occurred, type [%s], value [%s]" % p_type, p_value)
+
+
+def setup_exceptions():
+    """ Only print the heart of the exception and not the stack trace """
+    # first set up the variables needed by the _excepthook function
+    global _print_traceback, _drill
+    _print_traceback = os.getenv("PYLOGCONF_PRINT_TRACEBACK", False)
+    _drill = os.getenv("PYLOGCONF_DONT_DRILL", True)
+    # now that everything is ready attach the hook
+    sys.excepthook = _excepthook
+
+
 def setup():
     """ setup the logging system """
     default_path_yaml = os.path.expanduser('~/.pylogconf.yaml')
@@ -48,7 +77,7 @@ def setup():
     else:
         path = value
     if os.path.isfile(path):
-        debug('found logging configuration file [{0}]...'.format(path), dbg)
+        _debug('found logging configuration file [{0}]...'.format(path), dbg)
         with open(path) as f:
             config = yaml.load(f.read())
             logging.config.dictConfig(config)
@@ -61,12 +90,13 @@ def setup():
     else:
         path = value
     if os.path.isfile(path):
-        debug('found logging configuration file [{0}]...'.format(path), dbg)
+        _debug('found logging configuration file [{0}]...'.format(path), dbg)
         logging.config.fileConfig(path)
         return
 
-    debug('logging with level [{0}]...'.format(default_level), dbg)
+    _debug('logging with level [{0}]...'.format(default_level), dbg)
     logging.basicConfig(level=default_level)
+    setup_exceptions()
 
 
 def show_tree():
@@ -74,6 +104,6 @@ def show_tree():
     logging_tree.printout()
 
 
-def debug(msg, dbg):
+def _debug(msg, dbg):
     if dbg:
         print(msg)

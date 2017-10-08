@@ -6,7 +6,7 @@ if not sys.version_info[0] == 3:
 
 setuptools.setup(
     name='pylogconf',
-    version='0.0.8',
+    version='0.0.9',
     description='pylogconf is a logging configurator for python logging',
     long_description='pylogconf is a logging configurator for python logging',
     url='https://veltzer.github.io/pylogconf',
@@ -21,8 +21,8 @@ setuptools.setup(
     keywords='python logging configuration easy',
     py_modules=['pylogconf'],
     install_requires=[
-        'logging_tree',
-        'pyfakeuse',
-        'pyyaml',
+        'logging_tree',  # for printing the logging tree
+        'pyfakeuse',  # for avoiding use of some of the parameters to functions
+        'pyyaml',  # for parsing the YAML configuration file
     ],
 )
