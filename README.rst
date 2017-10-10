@@ -1,1 +1,2 @@
-This is to make 'python setup.py sdist' happy...
+# pylogconf
+Configure python logging for you
