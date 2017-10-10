@@ -1,18 +1,18 @@
 import setuptools
 
-import sys
-if not sys.version_info[0] == 3:
-    sys.exit("Sorry, only python version 3 is supported")
-
 setuptools.setup(
     name='pylogconf',
     version='0.0.9',
     description='pylogconf is a logging configurator for python logging',
     long_description='pylogconf is a logging configurator for python logging',
-    url='https://veltzer.github.io/pylogconf',
+    url='https://github.com/veltzer/pylogconf',
+    download_url='https://github.com/veltzer/pylogconf',
     author='Mark Veltzer',
     author_email='mark.veltzer@gmail.com',
+    maintainer='Mark Veltzer',
+    maintainer_email='mark.veltzer@gmail.com',
     license='MIT',
+    platforms=['python'],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
