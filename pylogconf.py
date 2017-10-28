@@ -35,13 +35,15 @@ def setup_scrapy():
     # print(scrapy.utils.log.log_scrapy_info)
 
 
-_print_traceback = None
-_drill = None
+# these control how to exception hook works
+# these are also their default values (unless overridden by environment variables)
+_print_traceback = False
+_drill = True
 
 
 def _excepthook(p_type, p_value, p_traceback):
     logger = logging.getLogger(__name__)
-    # we do not do anything with the traceback
+    # print the traceback but only if configured to do so
     if _print_traceback:
         print(p_traceback)
     # this loop will drill to the core of the problem
@@ -52,17 +54,26 @@ def _excepthook(p_type, p_value, p_traceback):
     logger.error("Exception occurred, type [%s], value [%s]" % p_type, p_value)
 
 
+def _str2bool(s):
+    """ convert a string to a boolean value """
+    return s in {"True", "T", "true", "t", "yes", "y", "1"}
+
+
 def setup_exceptions():
     """ Only print the heart of the exception and not the stack trace """
     # first set up the variables needed by the _excepthook function
     global _print_traceback, _drill
-    _print_traceback = os.getenv("PYLOGCONF_PRINT_TRACEBACK", False)
-    _drill = os.getenv("PYLOGCONF_DONT_DRILL", True)
+    local_print_traceback = os.getenv("PYLOGCONF_PRINT_TRACEBACK")
+    if local_print_traceback is not None:
+        _print_traceback = _str2bool(local_print_traceback)
+    local_drill = os.getenv("PYLOGCONF_DRILL")
+    if local_drill is not None:
+        _drill = _str2bool(local_drill)
     # now that everything is ready attach the hook
     sys.excepthook = _excepthook
 
 
-def setup():
+def setup_logging():
     """ setup the logging system """
     default_path_yaml = os.path.expanduser('~/.pylogconf.yaml')
     default_path_conf = os.path.expanduser('~/.pylogconf.conf')
@@ -96,6 +107,14 @@ def setup():
 
     _debug('logging with level [{0}]...'.format(default_level), dbg)
     logging.basicConfig(level=default_level)
+
+
+def setup():
+    """
+    This is the main API that this module exposes. It sets up logging and exception handling
+    :return:
+    """
+    setup_logging()
     setup_exceptions()
 
 
@@ -105,5 +124,12 @@ def show_tree():
 
 
 def _debug(msg, dbg):
+    """
+    debugging method for this module. Why do we need this? Why not use logging? Because we are setting up logging!
+    The regular chicken and egg problem...
+    :param msg:
+    :param dbg:
+    :return:
+    """
     if dbg:
         print(msg)
