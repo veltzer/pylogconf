@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='pylogconf',
-    version='0.0.11',
+    version='0.0.12',
     description='pylogconf is a logging configurator for python logging',
     long_description='pylogconf is a logging configurator for python logging',
     url='https://github.com/veltzer/pylogconf',
