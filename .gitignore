@@ -25,7 +25,7 @@ var/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+#  before PyInstaller builds the exe, so as to inject date/other information into it.
 *.manifest
 *.spec
 
@@ -64,9 +64,6 @@ docs/_build/
 
 # PyBuilder
 target/
-
-# IPython Notebook
-.ipynb_checkpoints
 
 # pyenv
 .python-version
