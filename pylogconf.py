@@ -51,7 +51,7 @@ def _excepthook(p_type, p_value, p_traceback):
     if _drill:
         while p_value.__cause__:
             p_value = p_value.__cause__
-    logger.error("Exception occurred, type [%s], value [%s]" % p_type, p_value)
+    logger.error("Exception occurred, type [%s], value [%s]" % (p_type, p_value))
 
 
 def _str2bool(s):
