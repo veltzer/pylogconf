@@ -5,6 +5,8 @@ import logging
 import sys
 
 # noinspection PyPackageRequirements
+import traceback
+
 import yaml
 import logging_tree
 from pyfakeuse.pyfakeuse import fake_use
@@ -41,17 +43,21 @@ _print_traceback = False
 _drill = True
 
 
-def _excepthook(p_type, p_value, p_traceback):
+def _excepthook(etype, value, tb):
     logger = logging.getLogger(__name__)
     # print the traceback but only if configured to do so
     if _print_traceback:
-        print(p_traceback)
+        traceback.print_exception(
+            etype=etype,
+            value=value,
+            tb=tb,
+        )
     # this loop will drill to the core of the problem
     # use only if this is what you want to show...
     if _drill:
-        while p_value.__cause__:
-            p_value = p_value.__cause__
-    logger.error("Exception occurred, type [%s], value [%s]" % (p_type, p_value))
+        while value.__cause__:
+            value = value.__cause__
+    logger.error("Exception occurred, type [%s], value [%s]" % (etype, value))
 
 
 def _str2bool(s):
