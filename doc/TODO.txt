@@ -1,2 +1,4 @@
-add a method disable_future_loggers() which disables adding any more handlers to
+- if the 'setup()' method is called more than once then all logging fails.
+	Make it not so.
+- add a method disable_future_loggers() which disables adding any more handlers to
 any more loggers in the future.
