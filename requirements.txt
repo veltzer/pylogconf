@@ -1,3 +1,5 @@
 pyfakeuse
 logging_tree
 pyyaml
+# development tools
+pypitools
