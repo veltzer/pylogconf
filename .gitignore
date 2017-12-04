@@ -81,3 +81,4 @@ celerybeat-schedule
 /.idea/workspace.xml
 
 /.pydmt/
+/docs/.doctrees/
