@@ -7,8 +7,10 @@ http://setuptools.readthedocs.io/en/latest/setuptools.html
 setuptools.setup(
     # the first three fields are a must according to the documentation
     name='pylogconf',
-    version='0.0.13',
-    py_modules=['pylogconf'],
+    version='0.0.14',
+    packages=[
+        'pylogconf',
+    ],
     # from here all is optional
     description='correctly configure python logging',
     long_description='correctly configure python logging',

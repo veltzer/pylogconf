@@ -1,0 +1,225 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pylogconf.core &#8212; pylogconf 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pylogconf.core</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">os.path</span>
+<span class="kn">import</span> <span class="nn">logging.config</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="c1"># noinspection PyPackageRequirements</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
+
+<span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">import</span> <span class="nn">logging_tree</span>
+<span class="kn">from</span> <span class="nn">pyfakeuse.pyfakeuse</span> <span class="k">import</span> <span class="n">fake_use</span>
+
+
+<span class="c1"># noinspection PyPackageRequirements,PyUnresolvedReferences</span>
+<div class="viewcode-block" id="setup_scrapy"><a class="viewcode-back" href="../../pylogconf.html#pylogconf.core.setup_scrapy">[docs]</a><span class="k">def</span> <span class="nf">setup_scrapy</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot; This is not needed as we pass &#39;LOG_ENABLED&#39;:False to scrapy at init time &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">replace_configure_logging</span><span class="p">(</span><span class="n">install_root_handler</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">settings</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">fake_use</span><span class="p">(</span><span class="n">install_root_handler</span><span class="p">)</span>
+        <span class="n">fake_use</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">replace_log_scrapy_info</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">fake_use</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+
+    <span class="c1"># scrapy stuff</span>
+    <span class="kn">import</span> <span class="nn">scrapy.utils.log</span>  <span class="c1"># for configure_logging</span>
+    <span class="kn">import</span> <span class="nn">scrapy.crawler</span>  <span class="c1"># configure_logging, log_scrapy_info</span>
+    <span class="n">logging_settings</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;LOG_ENABLED&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s1">&#39;LOG_LEVEL&#39;</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">WARN</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">scrapy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">configure_logging</span><span class="p">(</span><span class="n">install_root_handler</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">settings</span><span class="o">=</span><span class="n">logging_settings</span><span class="p">)</span>
+    <span class="c1"># are you watching closely?!?</span>
+    <span class="n">scrapy</span><span class="o">.</span><span class="n">crawler</span><span class="o">.</span><span class="n">configure_logging</span> <span class="o">=</span> <span class="n">replace_configure_logging</span>
+    <span class="n">scrapy</span><span class="o">.</span><span class="n">crawler</span><span class="o">.</span><span class="n">log_scrapy_info</span> <span class="o">=</span> <span class="n">replace_log_scrapy_info</span></div>
+    <span class="c1"># print(scrapy.utils.log.log_scrapy_info)</span>
+
+
+<span class="c1"># these control how to exception hook works</span>
+<span class="c1"># these are also their default values (unless overridden by environment variables)</span>
+<span class="n">_print_traceback</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">_drill</span> <span class="o">=</span> <span class="kc">True</span>
+
+
+<span class="k">def</span> <span class="nf">_excepthook</span><span class="p">(</span><span class="n">etype</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">tb</span><span class="p">):</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+    <span class="c1"># print the traceback but only if configured to do so</span>
+    <span class="k">if</span> <span class="n">_print_traceback</span><span class="p">:</span>
+        <span class="n">traceback</span><span class="o">.</span><span class="n">print_exception</span><span class="p">(</span>
+            <span class="n">etype</span><span class="o">=</span><span class="n">etype</span><span class="p">,</span>
+            <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span>
+            <span class="n">tb</span><span class="o">=</span><span class="n">tb</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="c1"># this loop will drill to the core of the problem</span>
+    <span class="c1"># use only if this is what you want to show...</span>
+    <span class="k">if</span> <span class="n">_drill</span><span class="p">:</span>
+        <span class="k">while</span> <span class="n">value</span><span class="o">.</span><span class="n">__cause__</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">__cause__</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Exception occurred, type [</span><span class="si">%s</span><span class="s2">], value [</span><span class="si">%s</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">etype</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">_str2bool</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; convert a string to a boolean value &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;True&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="s2">&quot;yes&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">}</span>
+
+
+<div class="viewcode-block" id="setup_exceptions"><a class="viewcode-back" href="../../pylogconf.html#pylogconf.core.setup_exceptions">[docs]</a><span class="k">def</span> <span class="nf">setup_exceptions</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot; Only print the heart of the exception and not the stack trace &quot;&quot;&quot;</span>
+    <span class="c1"># first set up the variables needed by the _excepthook function</span>
+    <span class="k">global</span> <span class="n">_print_traceback</span><span class="p">,</span> <span class="n">_drill</span>
+    <span class="n">local_print_traceback</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;PYLOGCONF_PRINT_TRACEBACK&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">local_print_traceback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_print_traceback</span> <span class="o">=</span> <span class="n">_str2bool</span><span class="p">(</span><span class="n">local_print_traceback</span><span class="p">)</span>
+    <span class="n">local_drill</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;PYLOGCONF_DRILL&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">local_drill</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_drill</span> <span class="o">=</span> <span class="n">_str2bool</span><span class="p">(</span><span class="n">local_drill</span><span class="p">)</span>
+    <span class="c1"># now that everything is ready attach the hook</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">excepthook</span> <span class="o">=</span> <span class="n">_excepthook</span></div>
+
+
+<div class="viewcode-block" id="setup_logging"><a class="viewcode-back" href="../../pylogconf.html#pylogconf.core.setup_logging">[docs]</a><span class="k">def</span> <span class="nf">setup_logging</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot; setup the logging system &quot;&quot;&quot;</span>
+    <span class="n">default_path_yaml</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~/.pylogconf.yaml&#39;</span><span class="p">)</span>
+    <span class="n">default_path_conf</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~/.pylogconf.conf&#39;</span><span class="p">)</span>
+    <span class="n">default_level</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span>
+
+    <span class="n">dbg</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;PYLOGCONF_DEBUG&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+    <span class="sd">&quot;&quot;&quot; try YAML config file first &quot;&quot;&quot;</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;PYLOGCONF_YAML&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">default_path_yaml</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="n">_debug</span><span class="p">(</span><span class="s1">&#39;found logging configuration file [</span><span class="si">{0}</span><span class="s1">]...&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="n">dbg</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">dictConfig</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+            <span class="k">return</span>
+
+    <span class="sd">&quot;&quot;&quot; Now try regular config file &quot;&quot;&quot;</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;PYLOGCONF_CONF&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">default_path_conf</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="n">_debug</span><span class="p">(</span><span class="s1">&#39;found logging configuration file [</span><span class="si">{0}</span><span class="s1">]...&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="n">dbg</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">fileConfig</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">_debug</span><span class="p">(</span><span class="s1">&#39;logging with level [</span><span class="si">{0}</span><span class="s1">]...&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">default_level</span><span class="p">),</span> <span class="n">dbg</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">default_level</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="setup"><a class="viewcode-back" href="../../pylogconf.html#pylogconf.core.setup">[docs]</a><span class="k">def</span> <span class="nf">setup</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is the main API that this module exposes. It sets up logging and exception handling</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">setup_logging</span><span class="p">()</span>
+    <span class="n">setup_exceptions</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="show_tree"><a class="viewcode-back" href="../../pylogconf.html#pylogconf.core.show_tree">[docs]</a><span class="k">def</span> <span class="nf">show_tree</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot; Show the logging tree &quot;&quot;&quot;</span>
+    <span class="n">logging_tree</span><span class="o">.</span><span class="n">printout</span><span class="p">()</span></div>
+
+
+<span class="k">def</span> <span class="nf">_debug</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">dbg</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    debugging method for this module. Why do we need this? Why not use logging? Because we are setting up logging!</span>
+<span class="sd">    The regular chicken and egg problem...</span>
+<span class="sd">    :param msg:</span>
+<span class="sd">    :param dbg:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">dbg</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Mark Veltzer.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
