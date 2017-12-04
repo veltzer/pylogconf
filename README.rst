@@ -1,2 +1,3 @@
-# pylogconf
-Configure python logging for you
+=======================
+*pylogconf* project by Mark Veltzer
+=======================
