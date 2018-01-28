@@ -2,3 +2,6 @@
 	Make it not so.
 - add a method disable_future_loggers() which disables adding any more handlers to
 any more loggers in the future.
+- make pylogconf work regularly if it doesn't find a yaml configuration file.
+- add a command like utility that installs a yaml configuration file ~/.pylogconf.yaml
+	into the users home directory.
