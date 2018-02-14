@@ -88,7 +88,9 @@ def setup_logging():
     """ setup the logging system """
     default_path_yaml = os.path.expanduser('~/.pylogconf.yaml')
     default_path_conf = os.path.expanduser('~/.pylogconf.conf')
-    default_level = logging.INFO
+    # this matches the default logging level of the logging
+    # library and makes sense...
+    default_level = logging.WARNING
 
     dbg = os.getenv("PYLOGCONF_DEBUG", False)
 
