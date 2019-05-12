@@ -4,8 +4,8 @@ pylogconf package
 Submodules
 ----------
 
-pylogconf\.core module
-----------------------
+pylogconf.core module
+---------------------
 
 .. automodule:: pylogconf.core
     :members:
