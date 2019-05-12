@@ -7,7 +7,7 @@ http://setuptools.readthedocs.io/en/latest/setuptools.html
 setuptools.setup(
     # the first three fields are a must according to the documentation
     name='pylogconf',
-    version='0.0.15',
+    version='0.0.18',
     packages=[
         'pylogconf',
     ],
