@@ -8,6 +8,9 @@ console_scripts = [
 setup_requires = [
 ]
 
+test_requires = [
+]
+
 install_requires = [
     'pyfakeuse',  # for avoiding use of some of the parameters to functions
     'logging_tree',  # for printing the logging tree
