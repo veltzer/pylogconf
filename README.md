@@ -9,3 +9,5 @@
 
 correctly configure python logging
 
+project website: https://veltzer.github.io/pylogconf
+
