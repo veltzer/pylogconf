@@ -1,9 +1,5 @@
 import setuptools
 
-"""
-The documentation can be found at:
-http://setuptools.readthedocs.io/en/latest/setuptools.html
-"""
 setuptools.setup(
     # the first three fields are a must according to the documentation
     name='pylogconf',
@@ -38,6 +34,8 @@ setuptools.setup(
         'logging_tree',
         'pyyaml',
     ],
+    extras_require={
+    },
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Console',
@@ -50,5 +48,5 @@ setuptools.setup(
     ],
     entry_points={'console_scripts': [
     ]},
-    python_requires='>=3',
+    python_requires='>=3.5',
 )
