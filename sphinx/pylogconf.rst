@@ -12,6 +12,14 @@ pylogconf.core module
    :undoc-members:
    :show-inheritance:
 
+pylogconf.version module
+------------------------
+
+.. automodule:: pylogconf.version
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 
 Module contents
 ---------------
