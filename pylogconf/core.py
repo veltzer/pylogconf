@@ -12,10 +12,6 @@ import logging_tree
 from pyfakeuse.pyfakeuse import fake_use
 
 
-def is_2():
-    return sys.version_info[0] == 2
-
-
 # noinspection PyPackageRequirements,PyUnresolvedReferences
 def setup_scrapy():
     """ This is not needed as we pass 'LOG_ENABLED':False to scrapy at init time """
@@ -59,7 +55,7 @@ def _excepthook(etype, value, tb):
     # this loop will drill to the core of the problem
     # use only if this is what you want to show...
     # note that exception chaining is only a python 3 feature.
-    if _drill and not is_2():
+    if _drill:
         while value.__cause__:
             value = value.__cause__
     logger.error("Exception occurred, type [%s], value [%s]" % (etype, value))
