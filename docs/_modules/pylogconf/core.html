@@ -45,10 +45,6 @@
 <span class="kn">from</span> <span class="nn">pyfakeuse.pyfakeuse</span> <span class="kn">import</span> <span class="n">fake_use</span>
 
 
-<div class="viewcode-block" id="is_2"><a class="viewcode-back" href="../../pylogconf.html#pylogconf.core.is_2">[docs]</a><span class="k">def</span> <span class="nf">is_2</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span></div>
-
-
 <span class="c1"># noinspection PyPackageRequirements,PyUnresolvedReferences</span>
 <div class="viewcode-block" id="setup_scrapy"><a class="viewcode-back" href="../../pylogconf.html#pylogconf.core.setup_scrapy">[docs]</a><span class="k">def</span> <span class="nf">setup_scrapy</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot; This is not needed as we pass &#39;LOG_ENABLED&#39;:False to scrapy at init time &quot;&quot;&quot;</span>
@@ -92,7 +88,7 @@
     <span class="c1"># this loop will drill to the core of the problem</span>
     <span class="c1"># use only if this is what you want to show...</span>
     <span class="c1"># note that exception chaining is only a python 3 feature.</span>
-    <span class="k">if</span> <span class="n">_drill</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_2</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">_drill</span><span class="p">:</span>
         <span class="k">while</span> <span class="n">value</span><span class="o">.</span><span class="n">__cause__</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">__cause__</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Exception occurred, type [</span><span class="si">%s</span><span class="s2">], value [</span><span class="si">%s</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">etype</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
