@@ -2,18 +2,19 @@ import setuptools
 
 setuptools.setup(
     # the first three fields are a must according to the documentation
-    name='pylogconf',
-    version='0.0.19',
+    name="pylogconf",
+    version="0.0.19",
     packages=[
         'pylogconf',
     ],
     # from here all is optional
-    description='correctly configure python logging',
-    long_description='correctly configure python logging',
-    author='Mark Veltzer',
-    author_email='mark.veltzer@gmail.com',
-    maintainer='Mark Veltzer',
-    maintainer_email='mark.veltzer@gmail.com',
+    description="correctly configure python logging",
+    long_description="correctly configure python logging",
+    long_description_content_type="text/x-rst",
+    author="Mark Veltzer",
+    author_email="mark.veltzer@gmail.com",
+    maintainer="Mark Veltzer",
+    maintainer_email="mark.veltzer@gmail.com",
     keywords=[
         'python',
         'logging',
@@ -23,9 +24,9 @@ setuptools.setup(
         'json',
         'debug',
     ],
-    url='https://veltzer.github.io/pylogconf',
-    download_url='https://github.com/veltzer/pylogconf',
-    license='MIT',
+    url="https://veltzer.github.io/pylogconf",
+    download_url="https://github.com/veltzer/pylogconf",
+    license="MIT",
     platforms=[
         'python3',
     ],
@@ -46,7 +47,7 @@ setuptools.setup(
     ],
     data_files=[
     ],
-    entry_points={'console_scripts': [
+    entry_points={"console_scripts": [
     ]},
-    python_requires='>=3.5',
+    python_requires=">=3.5",
 )
