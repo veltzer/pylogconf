@@ -32,7 +32,7 @@ setuptools.setup(
     ],
     url="https://veltzer.github.io/pylogconf",
     download_url="https://github.com/veltzer/pylogconf",
-    # license="MIT",
+    license="MIT",
     platforms=[
         'python3',
     ],
