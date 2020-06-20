@@ -81,3 +81,4 @@ celerybeat-schedule
 
 /.pydmt/
 /docs/.doctrees/
+/node_modules/
