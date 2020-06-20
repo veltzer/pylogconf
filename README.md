@@ -1,5 +1,4 @@
 
-
 # *pylogconf* project by Mark Veltzer
 
 ![PyPI - Status](https://img.shields.io/pypi/status/pylogconf)
@@ -17,7 +16,7 @@
 ![Downloads](https://pepy.tech/badge/pylogconf/month)
 ![Downloads](https://pepy.tech/badge/pylogconf/week)
 
+
 correctly configure python logging
 
-project website: https://veltzer.github.io/pylogconf
-
+project website: <https://veltzer.github.io/pylogconf>
