@@ -49,6 +49,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'pylogconf'
+# noinspection PyShadowingBuiltins
 copyright = '2017, Mark Veltzer'
 author = 'Mark Veltzer'
 
