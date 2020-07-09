@@ -142,3 +142,35 @@ def _debug(msg, dbg):
     """
     if dbg:
         print(msg)
+
+
+file_data = """
+---
+# see http://victorlin.me/posts/2012/08/26/good-logging-practice-in-python
+# values for level are: NOTSET, DEBUG, INFO, WARN, WARNING
+version: 1
+# if the next one is True then modules which do logger=logging.getLogger(__name__)
+# out of any function will not see their logging.
+disable_existing_loggers: True
+formatters:
+        simple:
+                format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+handlers:
+        console:
+                class: logging.StreamHandler
+                level: DEBUG
+                formatter: simple
+                stream: ext://sys.stdout
+root:
+        level: INFO
+        handlers: [console]
+        propagate: no
+loggers:
+        simple:
+                level: INFO
+"""
+
+
+def create_pylogconf_file():
+    with open(os.path.expanduser("~/.pylogconf.yaml"), "wt") as f:
+        f.write(file_data)
