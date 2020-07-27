@@ -2,6 +2,7 @@ import os
 import os.path
 import logging.config
 import logging
+import logging.handlers
 import sys
 
 # noinspection PyPackageRequirements
@@ -174,3 +175,19 @@ loggers:
 def create_pylogconf_file():
     with open(os.path.expanduser("~/.pylogconf.yaml"), "wt") as f:
         f.write(file_data)
+
+
+def setup_systemd(name: str) -> None:
+    """
+    Configure systemd daemon type logging
+    :param name:
+    :return:
+    """
+    root_logger = logging.getLogger()
+    root_logger.setLevel(logging.DEBUG)
+    handler = logging.handlers.SysLogHandler(address='/dev/log')
+    root_logger.addHandler(handler)
+    formatter = logging.Formatter(fmt='{}[%(process)d]: %(levelname)s: %(message)s'.format(
+        name,
+    ))
+    handler.setFormatter(formatter)
