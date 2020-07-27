@@ -15,7 +15,7 @@ install_requires = [
     'pyfakeuse',  # for avoiding use of some of the parameters to functions
     'logging_tree',  # for printing the logging tree
     'pyyaml',  # for parsing the YAML configuration file
-    'systemd',  # for systemd interface
+    # 'systemd',  # for systemd interface
 ]
 
 dev_requires = [

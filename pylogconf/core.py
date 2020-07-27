@@ -8,7 +8,7 @@ import sys
 # noinspection PyPackageRequirements
 import traceback
 
-import systemd.journal
+# import systemd.journal
 import yaml
 import logging_tree
 from pyfakeuse.pyfakeuse import fake_use
@@ -60,7 +60,7 @@ def _excepthook(etype, value, tb):
     if _drill:
         while value.__cause__:
             value = value.__cause__
-    logger.error("Exception occurred, type [%s], value [%s]" % (etype, value))
+    logger.exception("Exception occurred, type [%s], value [%s]" % (etype, value))
 
 
 def _str2bool(s):
@@ -178,7 +178,7 @@ def create_pylogconf_file():
         f.write(file_data)
 
 
-def setup_systemd_old(name: str) -> None:
+def setup_systemd(name: str) -> None:
     """
     Configure systemd daemon type logging
     :param name:
@@ -194,9 +194,9 @@ def setup_systemd_old(name: str) -> None:
     handler.setFormatter(formatter)
 
 
-def setup_systemd(name: str) -> None:
-    root_logger = logging.getLogger()
-    root_logger.setLevel(logging.DEBUG)
-    root_logger.addHandler(systemd.journal.JournaldLogHandler(
-        identifier=name,
-    ))
+# def setup_systemd(name: str) -> None:
+#    root_logger = logging.getLogger()
+#    root_logger.setLevel(logging.DEBUG)
+#    root_logger.addHandler(systemd.journal.JournaldLogHandler(
+#        identifier=name,
+#    ))
