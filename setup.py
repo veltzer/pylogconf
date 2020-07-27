@@ -40,6 +40,7 @@ setuptools.setup(
         'pyfakeuse',
         'logging_tree',
         'pyyaml',
+        'systemd',
     ],
     extras_require={
     },
