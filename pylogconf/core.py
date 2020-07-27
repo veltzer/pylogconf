@@ -8,6 +8,7 @@ import sys
 # noinspection PyPackageRequirements
 import traceback
 
+import systemd.journal
 import yaml
 import logging_tree
 from pyfakeuse.pyfakeuse import fake_use
@@ -177,7 +178,7 @@ def create_pylogconf_file():
         f.write(file_data)
 
 
-def setup_systemd(name: str) -> None:
+def setup_systemd_old(name: str) -> None:
     """
     Configure systemd daemon type logging
     :param name:
@@ -191,3 +192,11 @@ def setup_systemd(name: str) -> None:
         name,
     ))
     handler.setFormatter(formatter)
+
+
+def setup_systemd(name: str) -> None:
+    root_logger = logging.getLogger()
+    root_logger.setLevel(logging.DEBUG)
+    root_logger.addHandler(systemd.journal.JournaldLogHandler(
+        identifier=name,
+    ))

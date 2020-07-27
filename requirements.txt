@@ -3,6 +3,7 @@
 pyfakeuse
 logging_tree
 pyyaml
+systemd
 # dev requirements
 pypitools
 pydmt
