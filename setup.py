@@ -9,7 +9,7 @@ def get_readme():
 setuptools.setup(
     # the first three fields are a must according to the documentation
     name="pylogconf",
-    version="0.0.24",
+    version="0.0.25",
     packages=[
         'pylogconf',
     ],
@@ -40,7 +40,6 @@ setuptools.setup(
         'pyfakeuse',
         'logging_tree',
         'pyyaml',
-        'systemd',
     ],
     extras_require={
     },
