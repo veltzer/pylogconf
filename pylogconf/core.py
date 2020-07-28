@@ -184,14 +184,15 @@ def create_pylogconf_file():
         f.write(file_data)
 
 
-def setup_systemd(name: str) -> None:
+def setup_systemd(name: str, level: int) -> None:
     """
     Configure systemd daemon type logging
     :param name:
+    :param level:
     :return:
     """
     root_logger = logging.getLogger()
-    root_logger.setLevel(logging.DEBUG)
+    root_logger.setLevel(level)
     handler = logging.handlers.SysLogHandler(address='/dev/log')
     root_logger.addHandler(handler)
     formatter = logging.Formatter(fmt='{}[%(process)d]: %(levelname)s: %(message)s'.format(
@@ -200,9 +201,9 @@ def setup_systemd(name: str) -> None:
     handler.setFormatter(formatter)
 
 
-# def setup_systemd(name: str) -> None:
+# def setup_systemd(name: str, level: int) -> None:
 #    root_logger = logging.getLogger()
-#    root_logger.setLevel(logging.DEBUG)
+#    root_logger.setLevel(level)
 #    root_logger.addHandler(systemd.journal.JournaldLogHandler(
 #        identifier=name,
 #    ))
