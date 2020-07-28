@@ -82,13 +82,12 @@ def setup_exceptions():
     sys.excepthook = _excepthook
 
 
-def setup_logging():
+def setup_logging(level=None) -> None:
     """ setup the logging system """
     default_path_yaml = os.path.expanduser('~/.pylogconf.yaml')
     default_path_conf = os.path.expanduser('~/.pylogconf.conf')
     # this matches the default logging level of the logging
     # library and makes sense...
-    default_level = logging.WARNING
 
     dbg = os.getenv("PYLOGCONF_DEBUG", False)
 
@@ -116,16 +115,23 @@ def setup_logging():
         logging.config.fileConfig(path)
         return
 
-    _debug('logging with level [{0}]...'.format(default_level), dbg)
-    logging.basicConfig(level=default_level)
+    _debug('logging with level [{0}]...'.format(level), dbg)
+    if level is None:
+        env_level = os.getenv("PYLOGCONF_LEVEL")
+        if env_level is None:
+            level = logging.WARNING
+        else:
+            level = env_level
+
+    logging.basicConfig(level=level)
 
 
-def setup():
+def setup(level=None):
     """
     This is the main API that this module exposes. It sets up logging and exception handling
     :return:
     """
-    setup_logging()
+    setup_logging(level=level)
     setup_exceptions()
 
 

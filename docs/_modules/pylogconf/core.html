@@ -115,13 +115,12 @@
     <span class="n">sys</span><span class="o">.</span><span class="n">excepthook</span> <span class="o">=</span> <span class="n">_excepthook</span></div>
 
 
-<div class="viewcode-block" id="setup_logging"><a class="viewcode-back" href="../../pylogconf.html#pylogconf.core.setup_logging">[docs]</a><span class="k">def</span> <span class="nf">setup_logging</span><span class="p">():</span>
+<div class="viewcode-block" id="setup_logging"><a class="viewcode-back" href="../../pylogconf.html#pylogconf.core.setup_logging">[docs]</a><span class="k">def</span> <span class="nf">setup_logging</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot; setup the logging system &quot;&quot;&quot;</span>
     <span class="n">default_path_yaml</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~/.pylogconf.yaml&#39;</span><span class="p">)</span>
     <span class="n">default_path_conf</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~/.pylogconf.conf&#39;</span><span class="p">)</span>
     <span class="c1"># this matches the default logging level of the logging</span>
     <span class="c1"># library and makes sense...</span>
-    <span class="n">default_level</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span>
 
     <span class="n">dbg</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;PYLOGCONF_DEBUG&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
@@ -149,16 +148,23 @@
         <span class="n">logging</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">fileConfig</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
         <span class="k">return</span>
 
-    <span class="n">_debug</span><span class="p">(</span><span class="s1">&#39;logging with level [</span><span class="si">{0}</span><span class="s1">]...&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">default_level</span><span class="p">),</span> <span class="n">dbg</span><span class="p">)</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">default_level</span><span class="p">)</span></div>
+    <span class="n">_debug</span><span class="p">(</span><span class="s1">&#39;logging with level [</span><span class="si">{0}</span><span class="s1">]...&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">level</span><span class="p">),</span> <span class="n">dbg</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">level</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">env_level</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;PYLOGCONF_LEVEL&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">env_level</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">level</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">level</span> <span class="o">=</span> <span class="n">env_level</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="setup"><a class="viewcode-back" href="../../pylogconf.html#pylogconf.core.setup">[docs]</a><span class="k">def</span> <span class="nf">setup</span><span class="p">():</span>
+<div class="viewcode-block" id="setup"><a class="viewcode-back" href="../../pylogconf.html#pylogconf.core.setup">[docs]</a><span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This is the main API that this module exposes. It sets up logging and exception handling</span>
 <span class="sd">    :return:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">setup_logging</span><span class="p">()</span>
+    <span class="n">setup_logging</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">)</span>
     <span class="n">setup_exceptions</span><span class="p">()</span></div>
 
 
