@@ -207,3 +207,13 @@ def setup_syslog(name: str, level: int) -> None:
 #    root_logger.addHandler(systemd.journal.JournaldLogHandler(
 #        identifier=name,
 #    ))
+
+
+def remove_all_root_handlers():
+    """
+    This function can be used to reverse the effects of basicConfig
+    :return:
+    """
+    root_logger = logging.getLogger()
+    for x in root_logger.handlers:
+        root_logger.removeHandler(x)
