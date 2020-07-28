@@ -184,7 +184,7 @@ def create_pylogconf_file():
         f.write(file_data)
 
 
-def setup_systemd(name: str, level: int) -> None:
+def setup_syslog(name: str, level: int) -> None:
     """
     Configure systemd daemon type logging
     :param name:
