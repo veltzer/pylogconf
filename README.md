@@ -17,9 +17,12 @@
 ![Downloads](https://pepy.tech/badge/pylogconf/week)
 
 
+
 correctly configure python logging
 
 project website: <https://veltzer.github.io/pylogconf>
+
+chat with me at [![gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/veltzer/mark.veltzer)
 
 # Debian/Ubuntu users
 
