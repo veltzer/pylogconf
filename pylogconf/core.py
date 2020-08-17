@@ -11,7 +11,7 @@ import traceback
 # import systemd.journal
 import yaml
 import logging_tree
-from pyfakeuse.pyfakeuse import fake_use
+from pyfakeuse import fake_use
 
 
 # noinspection PyPackageRequirements,PyUnresolvedReferences
