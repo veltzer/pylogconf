@@ -16,6 +16,8 @@
 ![Downloads](https://pepy.tech/badge/pylogconf/month)
 ![Downloads](https://pepy.tech/badge/pylogconf/week)
 
+[![Known Vulnerabilities](https://snyk.io/test/github/veltzer/pylogconf/badge.svg?targetFile=requirements.txt)](https://snyk.io/test/github/veltzer/pylogconf?targetFile=requirements.txt)
+
 
 
 correctly configure python logging
