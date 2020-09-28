@@ -89,33 +89,37 @@ def setup_logging(level=None) -> None:
     # this matches the default logging level of the logging
     # library and makes sense...
 
-    dbg = os.getenv("PYLOGCONF_DEBUG", False)
+    dbg = os.getenv("PYLOGCONF_DEBUG", "False")
+    if dbg == "False":
+        dbg = False
+    else:
+        dbg = True
 
-    """ try YAML config file first """
+    # try YAML config file first
     value = os.getenv('PYLOGCONF_YAML', None)
     if value is None:
         path = default_path_yaml
     else:
         path = value
     if os.path.isfile(path):
-        _debug('found logging configuration file [{0}]...'.format(path), dbg)
+        _debug(f'found logging configuration file [{path}]...', dbg)
         with open(path) as f:
             config = yaml.load(f.read(), Loader=yaml.FullLoader)
             logging.config.dictConfig(config)
             return
 
-    """ Now try regular config file """
+    # Now try regular config file
     value = os.getenv('PYLOGCONF_CONF', None)
     if value is None:
         path = default_path_conf
     else:
         path = value
     if os.path.isfile(path):
-        _debug('found logging configuration file [{0}]...'.format(path), dbg)
+        _debug(f'found logging configuration file [{path}]...', dbg)
         logging.config.fileConfig(path)
         return
 
-    _debug('logging with level [{0}]...'.format(level), dbg)
+    _debug(f'logging with level [{level}]...', dbg)
     if level is None:
         env_level = os.getenv("PYLOGCONF_LEVEL")
         if env_level is None:
@@ -195,9 +199,7 @@ def setup_syslog(name: str, level: int) -> None:
     root_logger.setLevel(level)
     handler = logging.handlers.SysLogHandler(address='/dev/log')
     root_logger.addHandler(handler)
-    formatter = logging.Formatter(fmt='{}[%(process)d]: %(levelname)s: %(message)s'.format(
-        name,
-    ))
+    formatter = logging.Formatter(fmt=f'{name}[%(process)d]: %(levelname)s: %(message)s')
     handler.setFormatter(formatter)
 
 
