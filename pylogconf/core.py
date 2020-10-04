@@ -103,7 +103,7 @@ def setup_logging(level=None) -> None:
     if os.path.isfile(path):
         _debug(f'found logging configuration file [{path}]...', dbg)
         with open(path) as f:
-            config = yaml.load(f.read(), Loader=yaml.FullLoader)
+            config = yaml.safe_load(f)
             logging.config.dictConfig(config)
             return
 
