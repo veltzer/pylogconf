@@ -19,6 +19,9 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/veltzer/pylogconf/badge.svg?targetFile=requirements.txt)](https://snyk.io/test/github/veltzer/pylogconf?targetFile=requirements.txt)
 
 
+Actions
+
+![build](https://github.com/veltzer/pylogconf/workflows/build/badge.svg)
 
 correctly configure python logging
 

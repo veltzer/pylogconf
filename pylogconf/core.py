@@ -5,16 +5,13 @@ import logging
 import logging.handlers
 import sys
 
-# noinspection PyPackageRequirements
 import traceback
 
-# import systemd.journal
 import yaml
 import logging_tree
 from pyfakeuse import fake_use
 
 
-# noinspection PyPackageRequirements,PyUnresolvedReferences
 def setup_scrapy():
     """ This is not needed as we pass 'LOG_ENABLED':False to scrapy at init time """
 
@@ -26,8 +23,9 @@ def setup_scrapy():
         fake_use(settings)
 
     # scrapy stuff
-    import scrapy.utils.log  # for configure_logging
-    import scrapy.crawler  # configure_logging, log_scrapy_info
+    # pylint: disable=import-outside-toplevel
+    import scrapy.utils.log
+    import scrapy.crawler
     logging_settings = {
         'LOG_ENABLED': False,
         'LOG_LEVEL': logging.WARN,
@@ -60,7 +58,7 @@ def _excepthook(etype, value, tb):
     if _drill:
         while value.__cause__:
             value = value.__cause__
-    logger.exception("Exception occurred, type [%s], value [%s]" % (etype, value))
+    logger.exception(f"Exception occurred, type [{etype}], value [{value}]")
 
 
 def _str2bool(s):
@@ -71,6 +69,7 @@ def _str2bool(s):
 def setup_exceptions():
     """ Only print the heart of the exception and not the stack trace """
     # first set up the variables needed by the _excepthook function
+    # pylint: disable=global-statement
     global _print_traceback, _drill
     local_print_traceback = os.getenv("PYLOGCONF_PRINT_TRACEBACK")
     if local_print_traceback is not None:
