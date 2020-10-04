@@ -9,6 +9,11 @@ setup_requires = [
 ]
 
 test_requires = [
+    "pylint",  # to check for lint errors
+    "pytest",  # for testing
+    "pytest-cov",  # for testing
+    "flake8",  # for linting
+    "pymakehelper",  # for make
 ]
 
 install_requires = [
@@ -22,6 +27,7 @@ dev_requires = [
     'pypitools',  # for upload and registration
     'pydmt',  # for building
     'pyclassifiers',  # for specifying classifications
+    'scrapy',  # for developing the scrapy support
 ]
 
 python_requires = ">=3.6"

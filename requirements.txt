@@ -7,3 +7,10 @@ pyyaml
 pypitools
 pydmt
 pyclassifiers
+scrapy
+# test requirements
+pylint
+pytest
+pytest-cov
+flake8
+pymakehelper
