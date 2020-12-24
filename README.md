@@ -12,11 +12,6 @@
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/pylogconf)
 
 ![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)
-![Downloads](https://pepy.tech/badge/pylogconf)
-![Downloads](https://pepy.tech/badge/pylogconf/month)
-![Downloads](https://pepy.tech/badge/pylogconf/week)
-
-[![Known Vulnerabilities](https://snyk.io/test/github/veltzer/pylogconf/badge.svg?targetFile=requirements.txt)](https://snyk.io/test/github/veltzer/pylogconf?targetFile=requirements.txt)
 
 
 Actions
