@@ -20,7 +20,6 @@ install_requires = [
     'pyfakeuse',
     'logging_tree',
     'pyyaml',
-  
 ]
 
 dev_requires = [
