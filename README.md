@@ -14,7 +14,6 @@
 ![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)
 
 ![build](https://github.com/veltzer/pylogconf/workflows/build/badge.svg)
-
 correctly configure python logging
 
 project website: https://veltzer.github.io/pylogconf
