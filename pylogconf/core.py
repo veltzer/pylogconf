@@ -43,14 +43,15 @@ _print_traceback = False
 _drill = True
 
 
-def _excepthook(etype, value, tb):
+def _excepthook(etype, value, _tb):
     logger = logging.getLogger(__name__)
     # print the traceback but only if configured to do so
     if _print_traceback:
         traceback.print_exception(
-            etype=etype,
-            value=value,
-            tb=tb,
+            exc=value,
+            # etype=etype,
+            # value=value,
+            # tb=tb,
         )
     # this loop will drill to the core of the problem
     # use only if this is what you want to show...
