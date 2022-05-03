@@ -49,7 +49,7 @@ def _excepthook(etype, value, tb):
     if _print_traceback:
         # pylint: disable=no-value-for-parameter, unexpected-keyword-arg
         if sys.version_info >= (3, 10):
-            traceback.print_exception(exc=value)
+            traceback.print_exception(value)
         else:
             traceback.print_exception(
                 etype=etype,
