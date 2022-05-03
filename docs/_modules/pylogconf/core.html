@@ -80,11 +80,15 @@
     <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
     <span class="c1"># print the traceback but only if configured to do so</span>
     <span class="k">if</span> <span class="n">_print_traceback</span><span class="p">:</span>
-        <span class="n">traceback</span><span class="o">.</span><span class="n">print_exception</span><span class="p">(</span>
-            <span class="n">etype</span><span class="o">=</span><span class="n">etype</span><span class="p">,</span>
-            <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span>
-            <span class="n">tb</span><span class="o">=</span><span class="n">tb</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="c1"># pylint: disable=no-value-for-parameter, unexpected-keyword-arg</span>
+        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+            <span class="n">traceback</span><span class="o">.</span><span class="n">print_exception</span><span class="p">(</span><span class="n">exc</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">traceback</span><span class="o">.</span><span class="n">print_exception</span><span class="p">(</span>
+                <span class="n">etype</span><span class="o">=</span><span class="n">etype</span><span class="p">,</span>
+                <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span>
+                <span class="n">tb</span><span class="o">=</span><span class="n">tb</span><span class="p">,</span>
+            <span class="p">)</span>
     <span class="c1"># this loop will drill to the core of the problem</span>
     <span class="c1"># use only if this is what you want to show...</span>
     <span class="c1"># note that exception chaining is only a python 3 feature.</span>
