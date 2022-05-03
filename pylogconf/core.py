@@ -43,16 +43,19 @@ _print_traceback = False
 _drill = True
 
 
-def _excepthook(etype, value, _tb):
+def _excepthook(etype, value, tb):
     logger = logging.getLogger(__name__)
     # print the traceback but only if configured to do so
     if _print_traceback:
-        traceback.print_exception(
-            exc=value,
-            # etype=etype,
-            # value=value,
-            # tb=tb,
-        )
+        # pylint: disable=no-value-for-parameter, unexpected-keyword-arg
+        if sys.version_info >= (3, 10):
+            traceback.print_exception(exc=value)
+        else:
+            traceback.print_exception(
+                etype=etype,
+                value=value,
+                tb=tb,
+            )
     # this loop will drill to the core of the problem
     # use only if this is what you want to show...
     # note that exception chaining is only a python 3 feature.
