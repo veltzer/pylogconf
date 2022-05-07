@@ -23,18 +23,22 @@ def setup_scrapy():
         fake_use(settings)
 
     # scrapy stuff
-    # pylint: disable=import-outside-toplevel
-    import scrapy.utils.log
-    import scrapy.crawler
-    logging_settings = {
-        'LOG_ENABLED': False,
-        'LOG_LEVEL': logging.WARN,
-    }
-    scrapy.utils.log.configure_logging(install_root_handler=False, settings=logging_settings)
-    # are you watching closely?!?
-    scrapy.crawler.configure_logging = replace_configure_logging
-    scrapy.crawler.log_scrapy_info = replace_log_scrapy_info
-    # print(scrapy.utils.log.log_scrapy_info)
+    try:
+        # pylint: disable=import-outside-toplevel
+        import scrapy
+        import scrapy.utils.log
+        import scrapy.crawler
+        logging_settings = {
+            'LOG_ENABLED': False,
+            'LOG_LEVEL': logging.WARN,
+        }
+        scrapy.utils.log.configure_logging(install_root_handler=False, settings=logging_settings)
+        # are you watching closely?!?
+        scrapy.crawler.configure_logging = replace_configure_logging
+        scrapy.crawler.log_scrapy_info = replace_log_scrapy_info
+        # print(scrapy.utils.log.log_scrapy_info)
+    except ImportError as e:
+        pass
 
 
 # these control how to exception hook works
