@@ -2,6 +2,11 @@ import config.project
 
 package_name = config.project.project_name
 
+install_requires = [
+    "pyfakeuse",
+    "logging_tree",
+    "pyyaml",
+]
 test_requires = [
     "pylint",
     "pytest",
@@ -9,15 +14,12 @@ test_requires = [
     "flake8",
     "pymakehelper",
 ]
-install_requires = [
-    "pyfakeuse",
-    "logging_tree",
-    "pyyaml",
-]
 dev_requires = [
     "pypitools",
     "pydmt",
     "pyclassifiers",
+]
+extra_requires = [
     "scrapy",
 ]
 
