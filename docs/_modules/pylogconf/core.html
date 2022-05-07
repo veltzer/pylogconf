@@ -56,18 +56,22 @@
         <span class="n">fake_use</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
 
     <span class="c1"># scrapy stuff</span>
-    <span class="c1"># pylint: disable=import-outside-toplevel</span>
-    <span class="kn">import</span> <span class="nn">scrapy.utils.log</span>
-    <span class="kn">import</span> <span class="nn">scrapy.crawler</span>
-    <span class="n">logging_settings</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;LOG_ENABLED&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="s1">&#39;LOG_LEVEL&#39;</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">WARN</span><span class="p">,</span>
-    <span class="p">}</span>
-    <span class="n">scrapy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">configure_logging</span><span class="p">(</span><span class="n">install_root_handler</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">settings</span><span class="o">=</span><span class="n">logging_settings</span><span class="p">)</span>
-    <span class="c1"># are you watching closely?!?</span>
-    <span class="n">scrapy</span><span class="o">.</span><span class="n">crawler</span><span class="o">.</span><span class="n">configure_logging</span> <span class="o">=</span> <span class="n">replace_configure_logging</span>
-    <span class="n">scrapy</span><span class="o">.</span><span class="n">crawler</span><span class="o">.</span><span class="n">log_scrapy_info</span> <span class="o">=</span> <span class="n">replace_log_scrapy_info</span></div>
-    <span class="c1"># print(scrapy.utils.log.log_scrapy_info)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># pylint: disable=import-outside-toplevel</span>
+        <span class="kn">import</span> <span class="nn">scrapy</span>
+        <span class="kn">import</span> <span class="nn">scrapy.utils.log</span>
+        <span class="kn">import</span> <span class="nn">scrapy.crawler</span>
+        <span class="n">logging_settings</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;LOG_ENABLED&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s1">&#39;LOG_LEVEL&#39;</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">WARN</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">scrapy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">configure_logging</span><span class="p">(</span><span class="n">install_root_handler</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">settings</span><span class="o">=</span><span class="n">logging_settings</span><span class="p">)</span>
+        <span class="c1"># are you watching closely?!?</span>
+        <span class="n">scrapy</span><span class="o">.</span><span class="n">crawler</span><span class="o">.</span><span class="n">configure_logging</span> <span class="o">=</span> <span class="n">replace_configure_logging</span>
+        <span class="n">scrapy</span><span class="o">.</span><span class="n">crawler</span><span class="o">.</span><span class="n">log_scrapy_info</span> <span class="o">=</span> <span class="n">replace_log_scrapy_info</span>
+        <span class="c1"># print(scrapy.utils.log.log_scrapy_info)</span>
+    <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">pass</span></div>
 
 
 <span class="c1"># these control how to exception hook works</span>
