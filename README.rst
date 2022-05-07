@@ -12,6 +12,6 @@ project website: https://veltzer.github.io/pylogconf
 
 author: Mark Veltzer
 
-version: 0.0.36
+version: 0.0.37
 
 

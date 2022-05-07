@@ -7,7 +7,6 @@ pyyaml
 pypitools
 pydmt
 pyclassifiers
-scrapy
 # test requirements
 pylint
 pytest

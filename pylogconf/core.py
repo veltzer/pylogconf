@@ -37,7 +37,7 @@ def setup_scrapy():
         scrapy.crawler.configure_logging = replace_configure_logging
         scrapy.crawler.log_scrapy_info = replace_log_scrapy_info
         # print(scrapy.utils.log.log_scrapy_info)
-    except ImportError as e:
+    except ImportError:
         pass
 
 
