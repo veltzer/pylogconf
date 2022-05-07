@@ -41,8 +41,6 @@ setuptools.setup(
         'logging_tree',
         'pyyaml',
     ],
-    extras_require={
-    },
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Console',
@@ -56,7 +54,5 @@ setuptools.setup(
     ],
     data_files=[
     ],
-    entry_points={"console_scripts": [
-    ]},
     python_requires=">=3.9",
 )
