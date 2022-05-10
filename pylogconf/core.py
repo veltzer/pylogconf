@@ -91,8 +91,6 @@ def setup_exceptions():
 
 def setup_logging(level=None) -> None:
     """ setup the logging system """
-    default_path_yaml = os.path.expanduser('~/.pylogconf.yaml')
-    default_path_conf = os.path.expanduser('~/.pylogconf.conf')
     # this matches the default logging level of the logging
     # library and makes sense...
 
@@ -105,7 +103,7 @@ def setup_logging(level=None) -> None:
     # try YAML config file first
     value = os.getenv('PYLOGCONF_YAML', None)
     if value is None:
-        path = default_path_yaml
+        path = os.path.expanduser('~/.pylogconf.yaml')
     else:
         path = value
     if os.path.isfile(path):
@@ -118,7 +116,7 @@ def setup_logging(level=None) -> None:
     # Now try regular config file
     value = os.getenv('PYLOGCONF_CONF', None)
     if value is None:
-        path = default_path_conf
+        path = os.path.expanduser('~/.pylogconf.conf')
     else:
         path = value
     if os.path.isfile(path):
