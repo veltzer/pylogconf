@@ -14,6 +14,7 @@ test_requires = [
     "pytest-cov",
     "flake8",
     "pymakehelper",
+    "mypy",
 ]
 extra_requires = [
     "scrapy",
