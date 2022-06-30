@@ -2,7 +2,6 @@ dev_requires = [
     "pypitools",
     "pydmt",
     "pyclassifiers",
-    "types-PyYAML",
 ]
 install_requires = [
     "pyfakeuse",
@@ -16,6 +15,7 @@ test_requires = [
     "flake8",
     "pymakehelper",
     "mypy",
+    "types-PyYAML",
 ]
 extra_requires = [
     "scrapy",
