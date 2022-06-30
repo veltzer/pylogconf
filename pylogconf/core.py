@@ -94,8 +94,8 @@ def setup_logging(level=None) -> None:
     # this matches the default logging level of the logging
     # library and makes sense...
 
-    dbg = os.getenv("PYLOGCONF_DEBUG", "False")
-    if dbg == "False":
+    dbg_str = os.getenv("PYLOGCONF_DEBUG", "False")
+    if dbg_str == "False":
         dbg = False
     else:
         dbg = True

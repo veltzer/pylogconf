@@ -2,6 +2,7 @@ dev_requires = [
     "pypitools",
     "pydmt",
     "pyclassifiers",
+    "types-PyYAML",
 ]
 install_requires = [
     "pyfakeuse",
