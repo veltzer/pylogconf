@@ -13,3 +13,5 @@ pytest
 pytest-cov
 flake8
 pymakehelper
+mypy
+types-PyYAML
