@@ -1,6 +1,5 @@
 dev_requires = [
     "pypitools",
-    "pydmt",
     "pyclassifiers",
 ]
 install_requires = [
@@ -8,12 +7,15 @@ install_requires = [
     "logging_tree",
     "pyyaml",
 ]
+make_requires = [
+    "pymakehelper",
+    "pydmt",
+]
 test_requires = [
     "pylint",
     "pytest",
     "pytest-cov",
     "flake8",
-    "pymakehelper",
     "mypy",
     "types-PyYAML",
 ]
