@@ -5,13 +5,10 @@ logging_tree
 pyyaml
 # dev requirements
 pypitools
-pydmt
-pyclassifiers
 # test requirements
 pylint
 pytest
 pytest-cov
 flake8
-pymakehelper
 mypy
 types-PyYAML

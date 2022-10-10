@@ -1,6 +1,5 @@
 dev_requires = [
     "pypitools",
-    "pyclassifiers",
 ]
 install_requires = [
     "pyfakeuse",
@@ -8,6 +7,7 @@ install_requires = [
     "pyyaml",
 ]
 make_requires = [
+    "pyclassifiers",
     "pymakehelper",
     "pydmt",
 ]
