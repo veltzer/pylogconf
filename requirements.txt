@@ -3,12 +3,3 @@
 pyfakeuse
 logging_tree
 pyyaml
-# dev requirements
-pypitools
-# test requirements
-pylint
-pytest
-pytest-cov
-flake8
-mypy
-types-PyYAML
