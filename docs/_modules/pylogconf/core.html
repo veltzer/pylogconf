@@ -13,7 +13,6 @@
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
    
@@ -48,7 +47,7 @@
 
 
 <div class="viewcode-block" id="setup_scrapy"><a class="viewcode-back" href="../../pylogconf.html#pylogconf.core.setup_scrapy">[docs]</a><span class="k">def</span> <span class="nf">setup_scrapy</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; This is not needed as we pass &#39;LOG_ENABLED&#39;:False to scrapy at init time &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot; This is not needed as we pass &#39;LOG_ENABLED&#39;:False to scrapy at init time &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">replace_configure_logging</span><span class="p">(</span><span class="n">install_root_handler</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">settings</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">fake_use</span><span class="p">(</span><span class="n">install_root_handler</span><span class="p">)</span>
@@ -105,12 +104,12 @@
 
 
 <span class="k">def</span> <span class="nf">_str2bool</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; convert a string to a boolean value &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot; convert a string to a boolean value &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;True&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="s2">&quot;yes&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">}</span>
 
 
 <div class="viewcode-block" id="setup_exceptions"><a class="viewcode-back" href="../../pylogconf.html#pylogconf.core.setup_exceptions">[docs]</a><span class="k">def</span> <span class="nf">setup_exceptions</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Only print the heart of the exception and not the stack trace &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot; Only print the heart of the exception and not the stack trace &quot;&quot;&quot;</span>
     <span class="c1"># first set up the variables needed by the _excepthook function</span>
     <span class="c1"># pylint: disable=global-statement</span>
     <span class="k">global</span> <span class="n">_print_traceback</span><span class="p">,</span> <span class="n">_drill</span>
@@ -125,7 +124,7 @@
 
 
 <div class="viewcode-block" id="setup_logging"><a class="viewcode-back" href="../../pylogconf.html#pylogconf.core.setup_logging">[docs]</a><span class="k">def</span> <span class="nf">setup_logging</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; setup the logging system &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot; setup the logging system &quot;&quot;&quot;</span>
     <span class="c1"># this matches the default logging level of the logging</span>
     <span class="c1"># library and makes sense...</span>
 
@@ -171,7 +170,7 @@
 
 
 <div class="viewcode-block" id="setup"><a class="viewcode-back" href="../../pylogconf.html#pylogconf.core.setup">[docs]</a><span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This is the main API that this module exposes. It sets up logging and exception handling</span>
 <span class="sd">    :return:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -180,12 +179,12 @@
 
 
 <div class="viewcode-block" id="show_tree"><a class="viewcode-back" href="../../pylogconf.html#pylogconf.core.show_tree">[docs]</a><span class="k">def</span> <span class="nf">show_tree</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Show the logging tree &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot; Show the logging tree &quot;&quot;&quot;</span>
     <span class="n">logging_tree</span><span class="o">.</span><span class="n">printout</span><span class="p">()</span></div>
 
 
 <span class="k">def</span> <span class="nf">_debug</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">dbg</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    debugging method for this module. Why do we need this? Why not use logging? Because we are setting up logging!</span>
 <span class="sd">    The regular chicken and egg problem...</span>
 <span class="sd">    :param msg:</span>
@@ -229,7 +228,7 @@
 
 
 <div class="viewcode-block" id="setup_syslog"><a class="viewcode-back" href="../../pylogconf.html#pylogconf.core.setup_syslog">[docs]</a><span class="k">def</span> <span class="nf">setup_syslog</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Configure systemd daemon type logging</span>
 <span class="sd">    :param name:</span>
 <span class="sd">    :param level:</span>
@@ -252,7 +251,7 @@
 
 
 <div class="viewcode-block" id="remove_all_root_handlers"><a class="viewcode-back" href="../../pylogconf.html#pylogconf.core.remove_all_root_handlers">[docs]</a><span class="k">def</span> <span class="nf">remove_all_root_handlers</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function can be used to reverse the effects of basicConfig</span>
 <span class="sd">    :return:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -293,7 +292,7 @@
       &copy;2017, Mark Veltzer.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
