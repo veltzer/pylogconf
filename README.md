@@ -12,7 +12,7 @@ version: 0.0.37
 
 ## github
 
-![License](https://img.shields.io/github/license/veltzer/pytconf)
+![License](https://img.shields.io/github/license/veltzer/pylogconf)
 
 ## build
 
