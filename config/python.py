@@ -19,6 +19,3 @@ test_requires = [
     "mypy",
     "types-PyYAML",
 ]
-extra_requires = [
-    "scrapy",
-]
