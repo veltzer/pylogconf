@@ -1,3 +1,4 @@
+""" project definitions """
 name = "pylogconf"
 description_short = "correctly configure python logging"
 keywords = [
