@@ -11,10 +11,12 @@ install_requires: list[str] = [
 build_requires: list[str] = [
     "pydmt",
     "pymakehelper",
+
     "pylint",
     "pytest",
-    "pytest-cov",
     "mypy",
+    "ruff",
+    # types
     "types-PyYAML",
 ]
 requires = config_requires + install_requires + build_requires

@@ -7,6 +7,6 @@ pyfakeuse
 pylint
 pymakehelper
 pytest
-pytest-cov
 pyyaml
+ruff
 types-PyYAML
