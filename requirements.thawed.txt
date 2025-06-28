@@ -1,13 +1,12 @@
 # THIS IS AN AUTO-GENERATED FILE. DO NOT EDIT!
-pyclassifiers
-pyfakeuse
 logging_tree
-pyyaml
-pymakehelper
+mypy
+pyclassifiers
 pydmt
+pyfakeuse
 pylint
+pymakehelper
 pytest
 pytest-cov
-flake8
-mypy
+pyyaml
 types-PyYAML
