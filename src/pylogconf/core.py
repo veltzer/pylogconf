@@ -49,7 +49,7 @@ _print_traceback = False
 _drill = True
 
 
-def _excepthook(etype, value, tb):
+def _excepthook(etype, value, _tb):
     logger = logging.getLogger(__name__)
     # print the traceback but only if configured to do so
     if _print_traceback:
