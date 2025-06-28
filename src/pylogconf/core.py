@@ -54,14 +54,7 @@ def _excepthook(etype, value, tb):
     # print the traceback but only if configured to do so
     if _print_traceback:
         # pylint: disable=no-value-for-parameter, unexpected-keyword-arg
-        if sys.version_info >= (3, 10):
-            traceback.print_exception(value)
-        else:
-            traceback.print_exception(
-                etype=etype,
-                value=value,
-                tb=tb,
-            )
+        traceback.print_exception(value)
     # this loop will drill to the core of the problem
     # use only if this is what you want to show...
     # note that exception chaining is only a python 3 feature.
@@ -191,7 +184,7 @@ loggers:
 
 
 def create_pylogconf_file():
-    with open(os.path.expanduser("~/.pylogconf.yaml"), "wt") as f:
+    with open(os.path.expanduser("~/.pylogconf.yaml"), "w") as f:
         f.write(file_data)
 
 
