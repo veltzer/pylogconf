@@ -9,9 +9,12 @@ install_requires: list[str] = [
     "pyyaml",
 ]
 build_requires: list[str] = [
+    "hatch",
     "pydmt",
     "pymakehelper",
-
+    "pycmdtools",
+]
+test_requires: list[str] = [
     "pylint",
     "pytest",
     "mypy",
@@ -19,4 +22,4 @@ build_requires: list[str] = [
     # types
     "types-PyYAML",
 ]
-requires = config_requires + install_requires + build_requires
+requires = config_requires + install_requires + build_requires + test_requires
