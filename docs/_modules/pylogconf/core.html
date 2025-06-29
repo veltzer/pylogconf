@@ -85,19 +85,12 @@
 <span class="n">_drill</span> <span class="o">=</span> <span class="kc">True</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_excepthook</span><span class="p">(</span><span class="n">etype</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">tb</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_excepthook</span><span class="p">(</span><span class="n">etype</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">_tb</span><span class="p">):</span>
     <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
     <span class="c1"># print the traceback but only if configured to do so</span>
     <span class="k">if</span> <span class="n">_print_traceback</span><span class="p">:</span>
         <span class="c1"># pylint: disable=no-value-for-parameter, unexpected-keyword-arg</span>
-        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
-            <span class="n">traceback</span><span class="o">.</span><span class="n">print_exception</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">traceback</span><span class="o">.</span><span class="n">print_exception</span><span class="p">(</span>
-                <span class="n">etype</span><span class="o">=</span><span class="n">etype</span><span class="p">,</span>
-                <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span>
-                <span class="n">tb</span><span class="o">=</span><span class="n">tb</span><span class="p">,</span>
-            <span class="p">)</span>
+        <span class="n">traceback</span><span class="o">.</span><span class="n">print_exception</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
     <span class="c1"># this loop will drill to the core of the problem</span>
     <span class="c1"># use only if this is what you want to show...</span>
     <span class="c1"># note that exception chaining is only a python 3 feature.</span>
@@ -241,7 +234,7 @@
 <div class="viewcode-block" id="create_pylogconf_file">
 <a class="viewcode-back" href="../../pylogconf.html#pylogconf.core.create_pylogconf_file">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">create_pylogconf_file</span><span class="p">():</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~/.pylogconf.yaml&quot;</span><span class="p">),</span> <span class="s2">&quot;wt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~/.pylogconf.yaml&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">file_data</span><span class="p">)</span></div>
 
 
