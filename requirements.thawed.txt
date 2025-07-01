@@ -2,6 +2,7 @@
 hatch
 logging_tree
 mypy
+pyclassifiers
 pycmdtools
 pydmt
 pyfakeuse
