@@ -1,8 +1,7 @@
 """ python deps for this project """
 
-config_requires: list[str] = [
-    "pyclassifiers",
-]
+import config.shared
+
 install_requires: list[str] = [
     "pyfakeuse",
     "logging_tree",
@@ -19,7 +18,8 @@ test_requires: list[str] = [
     "pytest",
     "mypy",
     "ruff",
-    # types
+]
+types_requires: list[str] = [
     "types-PyYAML",
 ]
-requires = config_requires + install_requires + build_requires + test_requires
+requires = install_requires + build_requires + test_requires + types_requires
