@@ -15,7 +15,7 @@ from pyfakeuse import fake_use
 
 
 def setup_scrapy():
-    """ This is not needed as we pass 'LOG_ENABLED':False to scrapy at init time """
+    """ This is not needed as we pass "LOG_ENABLED":False to scrapy at init time """
 
     def replace_configure_logging(install_root_handler=False, settings=None):
         fake_use(install_root_handler)
@@ -31,8 +31,8 @@ def setup_scrapy():
         import scrapy.utils.log
         import scrapy.crawler
         logging_settings = {
-            'LOG_ENABLED': False,
-            'LOG_LEVEL': logging.WARN,
+            "LOG_ENABLED": False,
+            "LOG_LEVEL": logging.WARN,
         }
         scrapy.utils.log.configure_logging(install_root_handler=False, settings=logging_settings)
         # are you watching closely?!?
@@ -96,30 +96,30 @@ def setup_logging(level=None) -> None:
         dbg = True
 
     # try YAML config file first
-    value = os.getenv('PYLOGCONF_YAML', None)
+    value = os.getenv("PYLOGCONF_YAML", None)
     if value is None:
-        path = os.path.expanduser('~/.pylogconf.yaml')
+        path = os.path.expanduser("~/.pylogconf.yaml")
     else:
         path = value
     if os.path.isfile(path):
-        _debug(f'found logging configuration file [{path}]...', dbg)
+        _debug(f"found logging configuration file [{path}]...", dbg)
         with open(path) as f:
             config = yaml.safe_load(f)
             logging.config.dictConfig(config)
             return
 
     # Now try regular config file
-    value = os.getenv('PYLOGCONF_CONF', None)
+    value = os.getenv("PYLOGCONF_CONF", None)
     if value is None:
-        path = os.path.expanduser('~/.pylogconf.conf')
+        path = os.path.expanduser("~/.pylogconf.conf")
     else:
         path = value
     if os.path.isfile(path):
-        _debug(f'found logging configuration file [{path}]...', dbg)
+        _debug(f"found logging configuration file [{path}]...", dbg)
         logging.config.fileConfig(path)
         return
 
-    _debug(f'logging with level [{level}]...', dbg)
+    _debug(f"logging with level [{level}]...", dbg)
     if level is None:
         env_level = os.getenv("PYLOGCONF_LEVEL")
         if env_level is None:
@@ -197,9 +197,9 @@ def setup_syslog(name: str, level: int) -> None:
     """
     root_logger = logging.getLogger()
     root_logger.setLevel(level)
-    handler = logging.handlers.SysLogHandler(address='/dev/log')
+    handler = logging.handlers.SysLogHandler(address="/dev/log")
     root_logger.addHandler(handler)
-    formatter = logging.Formatter(fmt=f'{name}[%(process)d]: %(levelname)s: %(message)s')
+    formatter = logging.Formatter(fmt=f"{name}[%(process)d]: %(levelname)s: %(message)s")
     handler.setFormatter(formatter)
 
 
