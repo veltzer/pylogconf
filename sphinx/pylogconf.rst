@@ -9,21 +9,21 @@ pylogconf.core module
 
 .. automodule:: pylogconf.core
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pylogconf.static module
 -----------------------
 
 .. automodule:: pylogconf.static
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: pylogconf
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
