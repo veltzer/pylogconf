@@ -1,16 +1,15 @@
 """ core.py """
 
+import logging
+import logging.config
+import logging.handlers
 import os
 import os.path
-import logging.config
-import logging
-import logging.handlers
 import sys
-
 import traceback
 
-import yaml
 import logging_tree
+import yaml
 from pyfakeuse import fake_use
 
 
@@ -28,11 +27,11 @@ def setup_scrapy():
     try:
         # pylint: disable=import-outside-toplevel
         import scrapy
-        import scrapy.utils.log
         import scrapy.crawler
+        import scrapy.utils.log
         logging_settings = {
             "LOG_ENABLED": False,
-            "LOG_LEVEL": logging.WARN,
+            "LOG_LEVEL": logging.WARNING,
         }
         scrapy.utils.log.configure_logging(install_root_handler=False, settings=logging_settings)
         # are you watching closely?!?
