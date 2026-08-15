@@ -16,4 +16,5 @@ pip = [
     "pyfakeuse",
     "logging_tree",
     "pyyaml",
+    "types-PyYAML",
 ]
