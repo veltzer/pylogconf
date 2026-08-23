@@ -9,3 +9,4 @@ KEYWORDS = {
     "json",
     "debug",
 }
+PYPI = true
