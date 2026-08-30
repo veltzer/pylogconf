@@ -103,5 +103,6 @@ dev = [
     "pylint",
     "pytest",
     "ruff",
+    "sphinx",
     "types-PyYAML",
 ]
