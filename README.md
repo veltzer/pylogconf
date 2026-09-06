@@ -32,19 +32,19 @@ version: 0.0.38
 ![PyPI - Downloads](https://img.shields.io/pypi/dw/pylogconf)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/pylogconf)
 
-# Debian/Ubuntu users
+## Debian/Ubuntu users
 
     $ apt-get install build-essential libsystemd-journal-dev libsystemd-daemon-dev libsystemd-dev
 
-# For CentOS/RHEL
+## For CentOS/RHEL
 
     $ yum install gcc systemd-devel
 
-# And install it from pypi
+## And install it from pypi
 
     $ pip install pylogconf
 
-# Use it
+## Use it
 
 TBD
 
