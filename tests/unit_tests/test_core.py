@@ -34,6 +34,13 @@ class RemoveAllRootHandlersTests(unittest.TestCase):
         core.remove_all_root_handlers()
         self.assertEqual(self._root.handlers, [])
 
+    def test_removes_multiple_handlers(self):
+        self._root.handlers = []
+        for _ in range(3):
+            self._root.addHandler(logging.NullHandler())
+        core.remove_all_root_handlers()
+        self.assertEqual(self._root.handlers, [])
+
     def test_noop_when_no_handlers(self):
         self._root.handlers = []
         core.remove_all_root_handlers()

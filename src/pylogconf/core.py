@@ -216,5 +216,5 @@ def remove_all_root_handlers():
     :return:
     """
     root_logger = logging.getLogger()
-    for x in root_logger.handlers:
+    for x in list(root_logger.handlers):
         root_logger.removeHandler(x)
