@@ -5,7 +5,7 @@
 
 description: correctly configure python logging
 
-project website: https://veltzer.github.io/pylogconf
+project website: <https://veltzer.github.io/pylogconf>
 
 author: Mark Veltzer
 
