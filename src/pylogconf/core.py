@@ -1,5 +1,6 @@
 """ core.py """
 
+import importlib
 import logging
 import logging.config
 import logging.handlers
@@ -7,6 +8,7 @@ import os
 import os.path
 import sys
 import traceback
+from typing import Any
 
 import logging_tree
 import yaml
@@ -25,18 +27,16 @@ def setup_scrapy():
 
     # scrapy stuff
     try:
-        # pylint: disable=import-outside-toplevel
-        import scrapy
-        import scrapy.crawler
-        import scrapy.utils.log
+        scrapy_crawler: Any = importlib.import_module("scrapy.crawler")
+        scrapy_utils_log = importlib.import_module("scrapy.utils.log")
         logging_settings = {
             "LOG_ENABLED": False,
             "LOG_LEVEL": logging.WARNING,
         }
-        scrapy.utils.log.configure_logging(install_root_handler=False, settings=logging_settings)
+        scrapy_utils_log.configure_logging(install_root_handler=False, settings=logging_settings)
         # are you watching closely?!?
-        scrapy.crawler.configure_logging = replace_configure_logging
-        scrapy.crawler.log_scrapy_info = replace_log_scrapy_info
+        scrapy_crawler.configure_logging = replace_configure_logging
+        scrapy_crawler.log_scrapy_info = replace_log_scrapy_info
         # print(scrapy.utils.log.log_scrapy_info)
     except ImportError:
         pass
@@ -44,23 +44,22 @@ def setup_scrapy():
 
 # these control how to exception hook works
 # these are also their default values (unless overridden by environment variables)
-_print_traceback = False
-_drill = True
+_settings = {"print_traceback": False, "drill": True}
 
 
 def _excepthook(etype, value, _tb):
     logger = logging.getLogger(__name__)
     # print the traceback but only if configured to do so
-    if _print_traceback:
+    if _settings["print_traceback"]:
         # pylint: disable=no-value-for-parameter, unexpected-keyword-arg
         traceback.print_exception(value)
     # this loop will drill to the core of the problem
     # use only if this is what you want to show...
     # note that exception chaining is only a python 3 feature.
-    if _drill:
+    if _settings["drill"]:
         while value.__cause__:
             value = value.__cause__
-    logger.exception(f"Exception occurred, type [{etype}], value [{value}]")
+    logger.error(f"Exception occurred, type [{etype}], value [{value}]")
 
 
 def _str2bool(s):
@@ -71,14 +70,12 @@ def _str2bool(s):
 def setup_exceptions():
     """ Only print the heart of the exception and not the stack trace """
     # first set up the variables needed by the _excepthook function
-    # pylint: disable=global-statement
-    global _print_traceback, _drill
     local_print_traceback = os.getenv("PYLOGCONF_PRINT_TRACEBACK")
     if local_print_traceback is not None:
-        _print_traceback = _str2bool(local_print_traceback)
+        _settings["print_traceback"] = _str2bool(local_print_traceback)
     local_drill = os.getenv("PYLOGCONF_DRILL")
     if local_drill is not None:
-        _drill = _str2bool(local_drill)
+        _settings["drill"] = _str2bool(local_drill)
     # now that everything is ready attach the hook
     sys.excepthook = _excepthook
 
@@ -89,17 +86,11 @@ def setup_logging(level=None) -> None:
     # library and makes sense...
 
     dbg_str = os.getenv("PYLOGCONF_DEBUG", "False")
-    if dbg_str == "False":
-        dbg = False
-    else:
-        dbg = True
+    dbg = dbg_str != "False"
 
     # try YAML config file first
     value = os.getenv("PYLOGCONF_YAML", None)
-    if value is None:
-        path = os.path.expanduser("~/.pylogconf.yaml")
-    else:
-        path = value
+    path = os.path.expanduser("~/.pylogconf.yaml") if value is None else value
     if os.path.isfile(path):
         _debug(f"found logging configuration file [{path}]...", dbg)
         with open(path) as f:
@@ -109,10 +100,7 @@ def setup_logging(level=None) -> None:
 
     # Now try regular config file
     value = os.getenv("PYLOGCONF_CONF", None)
-    if value is None:
-        path = os.path.expanduser("~/.pylogconf.conf")
-    else:
-        path = value
+    path = os.path.expanduser("~/.pylogconf.conf") if value is None else value
     if os.path.isfile(path):
         _debug(f"found logging configuration file [{path}]...", dbg)
         logging.config.fileConfig(path)
@@ -121,10 +109,7 @@ def setup_logging(level=None) -> None:
     _debug(f"logging with level [{level}]...", dbg)
     if level is None:
         env_level = os.getenv("PYLOGCONF_LEVEL")
-        if env_level is None:
-            level = logging.WARNING
-        else:
-            level = env_level
+        level = logging.WARNING if env_level is None else env_level
 
     logging.basicConfig(level=level)
 
