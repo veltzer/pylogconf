@@ -51,7 +51,6 @@ def _excepthook(etype, value, _tb):
     logger = logging.getLogger(__name__)
     # print the traceback but only if configured to do so
     if _settings["print_traceback"]:
-        # pylint: disable=no-value-for-parameter, unexpected-keyword-arg
         traceback.print_exception(value)
     # this loop will drill to the core of the problem
     # use only if this is what you want to show...
@@ -59,7 +58,7 @@ def _excepthook(etype, value, _tb):
     if _settings["drill"]:
         while value.__cause__:
             value = value.__cause__
-    logger.error(f"Exception occurred, type [{etype}], value [{value}]")
+    logger.error("Exception occurred, type [%s], value [%s]", etype, value)
 
 
 def _str2bool(s):
