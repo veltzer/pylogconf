@@ -305,7 +305,7 @@ wheels = [
 
 [[package]]
 name = "pylogconf"
-version = "0.0.38"
+version = "0.0.39"
 source = { editable = "." }
 dependencies = [
     { name = "logging-tree" },

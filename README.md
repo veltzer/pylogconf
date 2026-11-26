@@ -9,7 +9,7 @@ project website: <https://veltzer.github.io/pylogconf>
 
 author: Mark Veltzer
 
-version: 0.0.38
+version: 0.0.39
 
 ## github
 
