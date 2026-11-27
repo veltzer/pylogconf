@@ -15,14 +15,14 @@ import yaml
 from pyfakeuse import fake_use
 
 
-def setup_scrapy():
+def setup_scrapy() -> None:
     """ This is not needed as we pass "LOG_ENABLED":False to scrapy at init time """
 
-    def replace_configure_logging(*, install_root_handler=False, settings=None):
+    def replace_configure_logging(*, install_root_handler: bool = False, settings: object = None) -> None:
         fake_use(install_root_handler)
         fake_use(settings)
 
-    def replace_log_scrapy_info(settings=None):
+    def replace_log_scrapy_info(settings: object = None) -> None:
         fake_use(settings)
 
     # scrapy stuff
@@ -46,7 +46,7 @@ def setup_scrapy():
 _settings = {"print_traceback": False, "drill": True}
 
 
-def _excepthook(etype, value, _tb):
+def _excepthook(etype: type[BaseException], value: BaseException, _tb) -> None:
     logger = logging.getLogger(__name__)
     # print the traceback but only if configured to do so
     if _settings["print_traceback"]:
@@ -60,12 +60,12 @@ def _excepthook(etype, value, _tb):
     logger.error("Exception occurred, type [%s], value [%s]", etype, value)
 
 
-def _str2bool(s):
+def _str2bool(s: str) -> bool:
     """ convert a string to a boolean value """
     return s in {"True", "T", "true", "t", "yes", "y", "1"}
 
 
-def setup_exceptions():
+def setup_exceptions() -> None:
     """ Only print the heart of the exception and not the stack trace """
     # first set up the variables needed by the _excepthook function
     local_print_traceback = os.getenv("PYLOGCONF_PRINT_TRACEBACK")
@@ -78,7 +78,7 @@ def setup_exceptions():
     sys.excepthook = _excepthook
 
 
-def setup_logging(level=None) -> None:
+def setup_logging(level: int | str | None = None) -> None:
     """ setup the logging system """
     # this matches the default logging level of the logging
     # library and makes sense...
@@ -90,7 +90,7 @@ def setup_logging(level=None) -> None:
     value = os.getenv("PYLOGCONF_YAML", None)
     path = os.path.expanduser("~/.pylogconf.yaml") if value is None else value
     if os.path.isfile(path):
-        _debug(f"found logging configuration file [{path}]...", dbg)
+        _debug(f"found logging configuration file [{path}]...", dbg=dbg)
         with open(path) as f:
             config = yaml.safe_load(f)
             logging.config.dictConfig(config)
@@ -100,11 +100,11 @@ def setup_logging(level=None) -> None:
     value = os.getenv("PYLOGCONF_CONF", None)
     path = os.path.expanduser("~/.pylogconf.conf") if value is None else value
     if os.path.isfile(path):
-        _debug(f"found logging configuration file [{path}]...", dbg)
+        _debug(f"found logging configuration file [{path}]...", dbg=dbg)
         logging.config.fileConfig(path)
         return
 
-    _debug(f"logging with level [{level}]...", dbg)
+    _debug(f"logging with level [{level}]...", dbg=dbg)
     if level is None:
         env_level = os.getenv("PYLOGCONF_LEVEL")
         level = logging.WARNING if env_level is None else env_level
@@ -112,7 +112,7 @@ def setup_logging(level=None) -> None:
     logging.basicConfig(level=level)
 
 
-def setup(level=None):
+def setup(level: int | str | None = None) -> None:
     """
     This is the main API that this module exposes. It sets up logging and exception handling
     :return:
@@ -121,12 +121,12 @@ def setup(level=None):
     setup_exceptions()
 
 
-def show_tree():
+def show_tree() -> None:
     """ Show the logging tree """
     logging_tree.printout()
 
 
-def _debug(msg, dbg):
+def _debug(msg: str, *, dbg: bool) -> None:
     """
     debugging method for this module. Why do we need this? Why not use logging? Because we are setting up logging!
     The regular chicken and egg problem...
@@ -165,7 +165,7 @@ loggers:
 """
 
 
-def create_pylogconf_file():
+def create_pylogconf_file() -> None:
     with open(os.path.expanduser("~/.pylogconf.yaml"), "w") as f:
         f.write(file_data)
 
@@ -187,7 +187,7 @@ def setup_syslog(name: str, level: int) -> None:
 
 
 
-def remove_all_root_handlers():
+def remove_all_root_handlers() -> None:
     """
     This function can be used to reverse the effects of basicConfig
     :return:
