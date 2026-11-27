@@ -18,7 +18,7 @@ from pyfakeuse import fake_use
 def setup_scrapy():
     """ This is not needed as we pass "LOG_ENABLED":False to scrapy at init time """
 
-    def replace_configure_logging(install_root_handler=False, settings=None):
+    def replace_configure_logging(*, install_root_handler=False, settings=None):
         fake_use(install_root_handler)
         fake_use(settings)
 
