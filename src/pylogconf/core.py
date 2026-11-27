@@ -37,7 +37,6 @@ def setup_scrapy():
         # are you watching closely?!?
         scrapy_crawler.configure_logging = replace_configure_logging
         scrapy_crawler.log_scrapy_info = replace_log_scrapy_info
-        # print(scrapy.utils.log.log_scrapy_info)
     except ImportError:
         pass
 
@@ -186,12 +185,6 @@ def setup_syslog(name: str, level: int) -> None:
     handler.setFormatter(formatter)
 
 
-# def setup_systemd(name: str, level: int) -> None:
-#    root_logger = logging.getLogger()
-#    root_logger.setLevel(level)
-#    root_logger.addHandler(systemd.journal.JournaldLogHandler(
-#        identifier=name,
-#    ))
 
 
 def remove_all_root_handlers():
