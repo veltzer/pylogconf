@@ -4,6 +4,7 @@ import logging
 import os
 import sys
 import unittest
+from typing import override
 from unittest import mock
 
 from pylogconf import core
@@ -29,9 +30,11 @@ def _drills_to_root_cause(token: str) -> bool:
 
 
 class Str2BoolTests(unittest.TestCase):
+    @override
     def setUp(self):
         self._saved_hook = sys.excepthook
 
+    @override
     def tearDown(self):
         # restore the defaults: drill on, traceback printing off
         with mock.patch.dict(os.environ, {"PYLOGCONF_DRILL": "1", "PYLOGCONF_PRINT_TRACEBACK": "0"}):
@@ -52,10 +55,12 @@ class Str2BoolTests(unittest.TestCase):
 
 
 class RemoveAllRootHandlersTests(unittest.TestCase):
+    @override
     def setUp(self):
         self._root = logging.getLogger()
         self._saved = list(self._root.handlers)
 
+    @override
     def tearDown(self):
         self._root.handlers = self._saved
 
